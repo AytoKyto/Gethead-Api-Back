@@ -1,0 +1,18 @@
+targetNamespace: ''
+parameters: {}
+packages:
+  - name: first-project
+    parameters: {}
+    annotations: {}
+    actions:
+      - name: stingray-app
+        binary: false
+        main: ''
+        runtime: 'nodejs:default'
+        web: true
+        parameters: {}
+        environment: {}
+        annotations: {}
+        limits: {}
+environment:
+  DATABASE_URL: ${MONGO_URI}

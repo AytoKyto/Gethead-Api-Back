@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const DataSchema = new mongoose.Schema({
+const DataModelSchema = new mongoose.Schema({
   project_id: {
     type: String,
     required: true,
@@ -35,6 +35,6 @@ const DataSchema = new mongoose.Schema({
   },
 });
 
-const Data = mongoose.model("Data", DataSchema);
+const DataModel = mongoose.model("DataModel", DataModelSchema);
 
-export default Data;
+export default DataModel;
