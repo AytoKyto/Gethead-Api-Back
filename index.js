@@ -41,7 +41,6 @@ app.use("/api", publicApiRoutes);
 
 /* MONOGOOSE SETUP */
 const PORT = process.env.PORT || 5001;
-mongoose.set("useFindAndModify", false);
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
