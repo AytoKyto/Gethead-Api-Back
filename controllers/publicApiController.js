@@ -1,6 +1,6 @@
-import RouteModel from '../models/routeModel.js';
-import DataModel from '../models/dataModel.js';
 import { faker } from "@faker-js/faker";
+import DataModel from '../models/dataModel.js';
+import RouteModel from '../models/routeModel.js';
 
 export const returnRoute = async (req, res) => {
     try {
@@ -30,7 +30,6 @@ export const returnRoute = async (req, res) => {
                     });
                 }
             }
-
             dataToSend.push(dataObj);
         }
 
