@@ -1,4 +1,4 @@
-import Data from "../models/dataModel.js";
+import Data from "../models/DataModel.js";
 
 export const createData = async (req, res) => {
   try {

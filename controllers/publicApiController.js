@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
-import Data from '../models/dataModel.js';
-import Route from '../models/routeModel.js';
+import Data from '../models/DataModel.js';
+import Route from '../models/RouteModel.js';
 
 export const returnRoute = async (req, res) => {
     try {
