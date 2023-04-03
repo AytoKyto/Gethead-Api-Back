@@ -43,7 +43,7 @@ app.use(cors());
 const PORT = process.env.PORT || 5001;
 mongoose.set('strictQuery', false);
 mongoose
-  .connect("mongodb+srv://aytodev:HoiBHHhYc6trmoQs@cluster0.u7wffye.mongodb.net/?retryWrites=true&w=majority", {
+  .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
