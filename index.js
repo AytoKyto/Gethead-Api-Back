@@ -29,13 +29,13 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
 /* ROUTES */
-app.use("/auth", authRoutes);
-app.use("/users", userRoutes);
-app.use("/routes", routeRoutes);
-app.use("/tests", testRoutes);
-app.use("/projects", projectRoutes);
-app.use("/datas", dataRoutes);
-app.use("/api", publicApiRoutes);
+// app.use("/auth", authRoutes);
+// app.use("/users", userRoutes);
+// app.use("/routes", routeRoutes);
+// app.use("/tests", testRoutes);
+// app.use("/projects", projectRoutes);
+// app.use("/datas", dataRoutes);
+// app.use("/api", publicApiRoutes);
 
 
 /* MONOGOOSE SETUP */
