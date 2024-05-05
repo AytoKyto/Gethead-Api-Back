@@ -2,28 +2,12 @@ import Data from "../models/DataModel.js";
 
 export const createData = async (req, res) => {
   try {
-    const {
-      project_id,
-      route_id,
-      name,
-      type,
-      valeur,
-      argument
-    } = req.body;
+    const { project_id, route_id, value } = req.body;
     const newData = new Data({
       project_id,
       route_id,
-      name,
-      type,
-      valeur,
-      argument
+      value,
     });
-
-    // control name, delete spaces by _ and lower case and remove accents and special characters
-    const nameControl = newData.name.replace(/ /g, "_").toLowerCase();
-    const nameControl2 = nameControl.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    const nameControl3 = nameControl2.replace(/[^a-zA-Z0-9_]/g, "");
-    newData.name = nameControl3;
 
     if (!newData.date_created) {
       newData.date_created = Date.now();
@@ -36,13 +20,13 @@ export const createData = async (req, res) => {
     res.status(200).json({
       satatus: true,
       message: "La données a été créée avec succès",
-      data: newData
+      data: newData,
     });
   } catch (error) {
     res.status(500).json({
       satatus: false,
       message: "Une erreur serveur est survenue, veuillez réessayer",
-      error: error
+      error: error,
     });
   }
 };
@@ -55,13 +39,13 @@ export const getData = async (req, res) => {
     res.status(200).json({
       satatus: true,
       message: "Toutes les données",
-      data: data
+      data: data,
     });
   } catch (error) {
     res.status(500).json({
       satatus: false,
       message: "Une erreur serveur est survenue, veuillez réessayer",
-      error: error
+      error: error,
     });
   }
 };
@@ -73,13 +57,13 @@ export const getOneData = async (req, res) => {
     res.status(200).json({
       satatus: true,
       message: "Données " + req.params.id,
-      data: data
+      data: data,
     });
   } catch (err) {
     res.status(500).json({
       satatus: false,
       message: "Erreur serveur",
-      error: err
+      error: err,
     });
   }
 };
@@ -87,30 +71,35 @@ export const getOneData = async (req, res) => {
 export const updateData = async (req, res) => {
   try {
     const { id } = req.params;
-    const updatedData = await Data.findByIdAndUpdate(id, req.body, { new: true });
+    const { value } = req.body;
 
-    if (!updatedData.name) {
-      // control name, delete spaces and replace by (_) and lower case and remove accents and special characters sauf _
-      const nameControl = updatedData.name.replace(/ /g, "_").toLowerCase();
-      const nameControl2 = nameControl.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      const nameControl3 = nameControl2.replace(/[^a-zA-Z0-9_]/g, "");
-      updatedData.name = nameControl3;
-    }
+    // Correction : Suppression du "new"
+    const updatedData = await Data.findByIdAndUpdate(
+      id,
+      {
+        value,
+        date_updated: Date.now(), // Ajout de date_updated lors de la mise à jour
+      },
+      { new: true } // Pour retourner l'objet mis à jour
+    );
 
-    if (!updatedData.date_updated) {
-      updatedData.date_updated = Date.now();
+    if (!updatedData) {
+      return res.status(404).json({
+        status: false,
+        message: "La donnée n'a pas été trouvée",
+      });
     }
 
     res.status(200).json({
-      satatus: true,
-      message: "La données a été mise à jour avec succès",
-      data: updatedData
+      status: true,
+      message: "La donnée a été mise à jour avec succès",
+      data: updatedData,
     });
   } catch (error) {
     res.status(500).json({
-      satatus: false,
+      status: false,
       message: "Une erreur serveur est survenue, veuillez réessayer",
-      error: error
+      error: error.message,
     });
   }
 };
@@ -124,13 +113,13 @@ export const deleteData = async (req, res) => {
     res.status(200).json({
       satatus: true,
       message: "La données a été supprimée avec succès",
-      data: deletedData
+      data: deletedData,
     });
   } catch (error) {
     res.status(500).json({
       satatus: false,
       message: "Une erreur serveur est survenue, veuillez réessayer",
-      error: error
+      error: error,
     });
   }
 };

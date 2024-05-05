@@ -9,21 +9,9 @@ const DataModelSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  name: {
-    type: String,
+  value: {
+    type: Array,
     required: true,
-  },
-  type: {
-    type: String,
-    required: true,
-  },
-  valeur: {
-    type: String,
-    required: true,
-  },
-  argument: {
-    type: String,
-    required: false,
   },
   date_created: {
     type: Date,
