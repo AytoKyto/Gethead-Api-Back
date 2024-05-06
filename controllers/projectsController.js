@@ -6,13 +6,13 @@ export const getProjects = async (req, res) => {
         const { user_id } = req.params;
         const projects = await Project.find({ user_id: user_id });
         res.status(200).json({
-            satatus: true,
+            status: true,
             message: "Tous les projets",
             data: projects
         });
     } catch (err) {
         res.status(500).json({
-            satatus: false,
+            status: false,
             message: "Erreur serveur",
             error: err
         });
@@ -24,13 +24,13 @@ export const getProject = async (req, res) => {
     try {
         const project = await Project.findById(req.params.id);
         res.status(200).json({
-            satatus: true,
+            status: true,
             message: "Projet " + req.params.id,
             data: project
         });
     } catch (err) {
         res.status(500).json({
-            satatus: false,
+            status: false,
             message: "Erreur serveur",
             error: err
         });
@@ -51,13 +51,13 @@ export const createProject = async (req, res) => {
     try {
         const savedProject = await newProject.save();
         res.status(200).json({
-            satatus: true,
+            status: true,
             message: "Le projet a été créé avec succès",
             data: savedProject
         });
     } catch (err) {
         res.status(500).json({
-            satatus: false,
+            status: false,
             message: "Erreur serveur",
             error: err
         });
@@ -71,13 +71,13 @@ export const updateProject = async (req, res) => {
             $set: req.body
         });
         res.status(200).json({
-            satatus: true,
+            status: true,
             message: "Le projet a été mis à jour avec succès",
             data: project
         });
     } catch (err) {
         res.status(500).json({
-            satatus: false,
+            status: false,
             message: "Erreur serveur",
             error: err
         });
@@ -91,7 +91,7 @@ export const deleteProject = async (req, res) => {
         res.status(200).json("Compte supprimé");
     } catch (err) {
         res.status(500).json({
-            satatus: false,
+            status: false,
             message: "Erreur serveur",
             error: err
         });

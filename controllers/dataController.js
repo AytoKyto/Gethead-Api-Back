@@ -18,13 +18,13 @@ export const createData = async (req, res) => {
 
     await newData.save();
     res.status(200).json({
-      satatus: true,
+      status: true,
       message: "La données a été créée avec succès",
       data: newData,
     });
   } catch (error) {
     res.status(500).json({
-      satatus: false,
+      status: false,
       message: "Une erreur serveur est survenue, veuillez réessayer",
       error: error,
     });
@@ -37,13 +37,13 @@ export const getData = async (req, res) => {
     const data = await Data.find({ route_id: route_id });
 
     res.status(200).json({
-      satatus: true,
+      status: true,
       message: "Toutes les données",
       data: data,
     });
   } catch (error) {
     res.status(500).json({
-      satatus: false,
+      status: false,
       message: "Une erreur serveur est survenue, veuillez réessayer",
       error: error,
     });
@@ -55,13 +55,13 @@ export const getOneData = async (req, res) => {
   try {
     const data = await Data.findById(req.params.id);
     res.status(200).json({
-      satatus: true,
+      status: true,
       message: "Données " + req.params.id,
       data: data,
     });
   } catch (err) {
     res.status(500).json({
-      satatus: false,
+      status: false,
       message: "Erreur serveur",
       error: err,
     });
@@ -111,13 +111,13 @@ export const deleteData = async (req, res) => {
     const deletedData = await Data.findByIdAndDelete(id);
 
     res.status(200).json({
-      satatus: true,
+      status: true,
       message: "La données a été supprimée avec succès",
       data: deletedData,
     });
   } catch (error) {
     res.status(500).json({
-      satatus: false,
+      status: false,
       message: "Une erreur serveur est survenue, veuillez réessayer",
       error: error,
     });

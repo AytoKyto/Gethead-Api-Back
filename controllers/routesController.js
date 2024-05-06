@@ -6,13 +6,13 @@ export const getRoutes = async (req, res) => {
     const { project_id } = req.params;
     const routes = await Route.find({ project_id: project_id });
     res.status(200).json({
-      satatus: true,
+      status: true,
       message: "Toutes les routes",
       data: routes,
     });
   } catch (err) {
     res.status(500).json({
-      satatus: false,
+      status: false,
       message: "Erreur serveur",
       error: err,
     });
@@ -24,13 +24,13 @@ export const getRoute = async (req, res) => {
   try {
     const route = await Route.findById(req.params.id);
     res.status(200).json({
-      satatus: true,
+      status: true,
       message: "Route " + req.params.id,
       data: route,
     });
   } catch (err) {
     res.status(500).json({
-      satatus: false,
+      status: false,
       message: "Erreur serveur",
       error: err,
     });
@@ -60,13 +60,13 @@ export const createRoute = async (req, res) => {
   try {
     const savedRoute = await newRoute.save();
     res.status(200).json({
-      satatus: true,
+      status: true,
       message: "La route a été créée avec succès",
       data: savedRoute,
     });
   } catch (err) {
     res.status(500).json({
-      satatus: false,
+      status: false,
       message: "Erreur serveur",
       error: err,
     });
@@ -93,13 +93,13 @@ export const updateRoute = async (req, res) => {
     });
 
     res.status(200).json({
-      satatus: true,
+      status: true,
       message: "La route a été mise à jour avec succès",
       data: route,
     });
   } catch (err) {
     res.status(500).json({
-      satatus: false,
+      status: false,
       message: "Erreur serveur",
       error: err,
     });
@@ -111,12 +111,12 @@ export const deleteRoute = async (req, res) => {
   try {
     await Route.findByIdAndDelete(req.params.id);
     res.status(200).json({
-      satatus: true,
+      status: true,
       message: "La route a été supprimée avec succès",
     });
   } catch (err) {
     res.status(500).json({
-      satatus: false,
+      status: false,
       message: "Erreur serveur",
       error: err,
     });
