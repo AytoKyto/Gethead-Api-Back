@@ -7,6 +7,7 @@ import User from "../models/UserModel.js";
 export const register = async (req, res) => {
   try {
     const { email, password } = req.body;
+
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).json({
@@ -91,9 +92,46 @@ export const login = async (req, res) => {
 };
 
 /* FORGOT PASSWORD */
+// export const forgotPassword = async (req, res) => {
+//   try {
+//     const { email } = req.body;
+//     const user = await User.findOne({ email });
+
+//     if (!user) {
+//       return res.status(404).json({
+//         status: false,
+//         message: "Utilisateur non trouvé",
+//       });
+//     }
+
+//     // Générer un token
+//     const token = crypto.randomBytes(32).toString("hex");
+
+//     user.resetPasswordToken = token;
+//     user.resetPasswordExpires = Date.now() + 3600000; // 1 heure
+
+//     await user.save();
+
+//     // Envoyer le token par email (simulé ici)
+//     const resetLink = `http://localhost:3000/api/auth/reset-password?token=${token}`;
+//     console.log(`Lien pour réinitialiser le mot de passe : ${resetLink}`);
+
+//     res.status(200).json({
+//       status: true,
+//       message: "Email de réinitialisation envoyé",
+//     });
+//   } catch (err) {
+//     res.status(500).json({
+//       status: false,
+//       message: "Erreur serveur",
+//       error: err.message,
+//     });
+//   }
+// };
+
 export const forgotPassword = async (req, res) => {
   try {
-    const { email } = req.body;
+    const { email, newPassword } = req.body;
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -103,17 +141,13 @@ export const forgotPassword = async (req, res) => {
       });
     }
 
-    // Générer un token
-    const token = crypto.randomBytes(32).toString("hex");
+    // Générer un t  // Hash du nouveau mot de passe
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
 
-    user.resetPasswordToken = token;
-    user.resetPasswordExpires = Date.now() + 3600000; // 1 heure
+    user.password = hashedPassword;
 
     await user.save();
-
-    // Envoyer le token par email (simulé ici)
-    const resetLink = `http://localhost:3000/api/auth/reset-password?token=${token}`;
-    console.log(`Lien pour réinitialiser le mot de passe : ${resetLink}`);
 
     res.status(200).json({
       status: true,
@@ -127,4 +161,3 @@ export const forgotPassword = async (req, res) => {
     });
   }
 };
-
