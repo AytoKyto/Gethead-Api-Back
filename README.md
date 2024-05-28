@@ -25,3 +25,4 @@ Gethead API est une application web en no code qui permet aux utilisateurs de cr
 - Le code source nécessite une refonte pour améliorer la qualité et la maintenabilité.
 - Extension des types de requêtes supportées au-delà de GET.
 - Amélioration de l'interface utilisateur pour une meilleure expérience no code.
+
